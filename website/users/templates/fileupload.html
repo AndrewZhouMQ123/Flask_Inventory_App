@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}File Upload{% endblock %}
+
+{% block content %}
+    {% include 'content.html' %}
+    <h1>File Upload</h1>
+    <form method="POST" action="{{ url_for('users.file_upload') }}" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/plain">
+        <input type="submit" value="Upload File">
+    </form>
+
+    <h1>Convert to CSV</h1>
+    <form method="POST" action="{{ url_for('users.convert_csv') }}" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+        <input type="submit" value="Upload File">
+    </form>
+
+    <h1>Convert to CSV Two</h1>
+    <form method="POST" action="{{ url_for('users.convert_csv_two') }}" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+        <input type="submit" value="Upload File">
+    </form>
+
+{% endblock %}
