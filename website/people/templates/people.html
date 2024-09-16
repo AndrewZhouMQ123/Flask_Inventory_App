@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Peoples Page{% endblock %}
+{% block title %}People Page{% endblock %}
 
 {% block content %}
     {% include 'content.html' %}
-    <h1>Peoples</h1>
+    <h1>People</h1>
     <script src="/js/hello.js"></script>
 
     {% if current_user.role == 'admin' %}

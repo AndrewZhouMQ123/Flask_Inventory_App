@@ -4,9 +4,9 @@ from flask_login import login_required
 from website import db
 from .models import Person
 
-peoples = Blueprint('peoples', __name__, template_folder='templates')
+people = Blueprint('people', __name__, template_folder='templates')
 
-@peoples.route('/', methods=['GET', 'POST'])
+@people.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
     if request.method == 'GET':
@@ -22,18 +22,18 @@ def index():
         db.session.commit()
 
         people = Person.query.all()
-        return render_template('peoples.html', people=people)
+        return render_template('people.html', people=people)
         
-@peoples.route('/delete/<pid>', methods=['DELETE'])
+@people.route('/delete/<pid>', methods=['DELETE'])
 @login_required
 def delete(pid):
     Person.query.filter(Person.pid == pid).delete()
 
     db.session.commit()
     people = Person.query.all()
-    return render_template('peoples.html', people=people)
+    return render_template('people.html', people=people)
 
-@peoples.route('/details/<pid>')
+@people.route('/details/<pid>')
 @login_required
 def details(pid):
     person = Person.query.filter(Person.pid == pid).first()

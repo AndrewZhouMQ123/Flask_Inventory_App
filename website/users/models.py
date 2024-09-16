@@ -8,13 +8,16 @@ from website import db
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
-    uid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    role = db.Column(db.String)
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String)
-    phone = db.Column(db.String)
-    email = db.Column(db.String)
-    role = db.Column(db.String)
+    phone = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True)
     description = db.Column(db.String)
+    people = db.relationship('people')
+    todo = db.relationship('todos')
+
 
     def __repr__(self):
         return f'<User: {self.username}, Role: {self.role}>'

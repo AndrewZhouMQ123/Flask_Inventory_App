@@ -1,1 +1,9 @@
 .venv/
+instance/
+migrations/
+__pycache__/
+website/__pycache__/
+website/core/__pycache__/
+website/people/__pycache__/
+website/todos/__pycache__/
+website/users/__pycache__/

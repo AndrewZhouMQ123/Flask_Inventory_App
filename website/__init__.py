@@ -35,12 +35,12 @@ def create_app():
 
     # import and register all blueprints
     from .users.views import users
-    from .peoples.views import peoples
+    from .people.views import people
     from .todos.views import todos
     from .core.views import core
     app.register_blueprint(core)
     app.register_blueprint(users, url_prefix='/users')
-    app.register_blueprint(peoples, url_prefix='/peoples')
+    app.register_blueprint(people, url_prefix='/people')
     app.register_blueprint(todos, url_prefix='/todos')
 
     migrate = Migrate(app, db)

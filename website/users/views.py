@@ -4,7 +4,7 @@ import uuid
 import pandas as pd
 from flask import render_template, request, Response, flash, make_response, send_from_directory, session, redirect, url_for, Blueprint, current_app
 from flask_login import login_user, logout_user, current_user, login_required
-
+from werkzeug.security import generate_password_hash, check_password_hash
 from website import db
 from .models import User
 
@@ -58,8 +58,10 @@ def logout():
 @users.route('/secret')
 @login_required
 def secret():
+    # If user is admin, success, otherwise ask for secret key
+    # If no secret key, no permission
     if current_user.role == 'admin':
-        return 'My secret message!'
+        return 'Success!'
     else:
         return 'No Permission'
     

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
     {% if current_user.is_authenticated %}
         <a class="navbar-brand" href="{{ url_for('core.index') }}">Home</a>
-        <a class="navbar-brand" href="{{ url_for('peoples.index') }}">Peoples</a>
+        <a class="navbar-brand" href="{{ url_for('people.index') }}">Peoples</a>
         <a class="navbar-brand" href="{{ url_for('users.index')}}">Users</a>
         <a class="navbar-brand" href="{{ url_for('todos.index') }}">Todos</a>
         <a class="navbar-brand" href="{{ url_for('users.secret')}}">Secret</a>
@@ -12,7 +12,7 @@
     {% else %}
         <a class="navbar-brand" href="{{ url_for('core.index') }}">Home</a>
         <a class="navbar-brand" href="{{ url_for('core.about') }}" >About</a>
-        <a class="navbar-brand" href="{{ url_for('peoples.index') }}">Peoples</a>
+        <a class="navbar-brand" href="{{ url_for('people.index') }}">Peoples</a>
         <a class="navbar-brand" href="{{ url_for('todos.index') }}">Todos</a>
         <a class="navbar-brand" href="{{ url_for('users.booking') }}">Booking</a>
         <a class="navbar-brand" href="{{ url_for('core.contact') }}" >Contact</a>
