@@ -13,7 +13,11 @@ def index():
     elif request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
-        done = request.form.get('done')
+        done_str = request.form.get('done')
+        if done_str == "yes":
+            done = True
+        if done_str == "no":
+            done = False
         todo = Todo(title=title, description=description, done=done, user_id=current_user.id)
         db.session.add(todo)
         db.session.commit()

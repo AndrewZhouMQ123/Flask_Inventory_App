@@ -12,12 +12,14 @@
             <a href="{{ url_for('todo.details', id=todo.id) }}">Details</a></li>
         {% endfor %}
     </ul>
-
-    <h3>New Todo</h3>
+    
     <form action="{{ url_for('todos.index') }}" method="POST">
-        <input type="title" name="title" placeholder="title" required="required"><br>
-        <input type="text" name="description" placeholder="description"><br>
-        <input type="checkbox" name="done" required="required"><br>
+        <h3>New Todo</h3>
+        Title: <input type="title" name="title" placeholder="title" required="required"><br>
+        Description: <input type="text" name="description" placeholder="description"><br>
+        <label for="done">Is this todo task done/completed?</label><br>
+        <input type="radio" name="done" value="yes">Yes<input/>
+        <input type="radio" name="done" value="no">No<input/><br>
         <input type="submit" value="Create">
     </form>
     
