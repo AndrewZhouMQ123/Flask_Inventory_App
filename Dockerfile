@@ -19,7 +19,5 @@ ENV FLASK_APP=main.py
 # use one line to reduce the layers in docker
 RUN flask db init && flask db migrate && flask db upgrade
 
-# back to the work directory where main.py is
-WORKDIR /flask_inventory_app
 # run the following command to run the application
 CMD ["python3", "main.py"]
