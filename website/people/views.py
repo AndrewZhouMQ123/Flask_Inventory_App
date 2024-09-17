@@ -64,8 +64,8 @@ def edit():
 
 @people.route('/delete/<pid>', methods=['DELETE'])
 @login_required
-def delete(pid):
-    Person.query.filter(Person.pid == pid).delete()
+def delete(id):
+    Person.query.filter(Person.id == id).delete()
 
     db.session.commit()
     people = Person.query.all()

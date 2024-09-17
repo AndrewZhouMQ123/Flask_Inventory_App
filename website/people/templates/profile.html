@@ -11,7 +11,7 @@
         <p><strong>Age:</strong> {{ current_user.person.age }}</p>
         <p><strong>Job:</strong> {{ current_user.person.job }}</p>
 
-        <button onclick="editPerson('{{ person.id }}')">Edit</button>
+        <button onclick="editPerson">Edit</button>
         <button onclick="deletePerson('{{ person.id }}')">Delete</button>
     
     {% else %}
@@ -25,14 +25,14 @@
     {% endif %}
 
     <script type="text/javascript">
-        function editPerson(id) {
-            fetch('{{ url_for("peoples.edit", id=id) }}' + id, {
-                method: 'GET'
+        function editPerson() {
+            fetch('{{ url_for("peoples.edit") }}', {
+                method: 'POST'
             }).then(response => {
                 if (response.ok) {
                     window.location.reload();
                 } else {
-                    console.error('Failed to edit item with person id:', id)
+                    console.error('Failed to edit item')
                 }
             }).catch(error => {
                 console.error('Error during fetching:', error)

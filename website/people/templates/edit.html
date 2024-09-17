@@ -22,20 +22,4 @@
         <input type="text" name="job" placeholder="Job"><br>
         <input type="submit" value="Create">
     </form>
-
-    <script type="text/javascript">
-        function editPerson(id) {
-            fetch('{{ url_for("peoples.edit", id=id) }}' + id, {
-                method: 'POST'
-            }).then(response => {
-                if (response.ok) {
-                    window.location.reload();
-                } else {
-                    console.error('Failed to edit item with person id:', id)
-                }
-            }).catch(error => {
-                console.error('Error during fetching:', error)
-            });
-        }
-    </script>
 {% endblock %}
