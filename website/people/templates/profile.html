@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}User Profile Page{% endblock %}
+
+{% block content %}
+    {% include 'content.html' %}
+    <h1>User Profile</h1>
+
+    {% if current_user.person %}
+        <h3>Details</h3>
+        <p><strong>Name:</strong> {{ current_user.person.name }}</p>
+        <p><strong>Age:</strong> {{ current_user.person.age }}</p>
+        <p><strong>Job:</strong> {{ current_user.person.job }}</p>
+
+        <button onclick="editPerson('{{ person.id }}')">Edit</button>
+        <button onclick="deletePerson('{{ person.id }}')">Delete</button>
+    
+    {% else %}
+        <h3>Create User Profile</h3>
+            <form action="{{ url_for('people.profile') }}" method="POST">
+                <input type="text" name="name" placeholder="Name" required="required"><br>
+                <input type="number" name="age" placeholder="Age"><br>
+                <input type="text" name="job" placeholder="Job"><br>
+                <input type="submit" value="Create">
+            </form>
+    {% endif %}
+
+    <script type="text/javascript">
+        function editPerson(id) {
+            fetch('{{ url_for("peoples.edit", id=id) }}' + id, {
+                method: 'GET'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to edit item with person id:', id)
+                }
+            }).catch(error => {
+                console.error('Error during fetching:', error)
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function deletePerson(id) {
+            fetch('{{ url_for("peoples.delete", id=id) }}' + id, {
+                method: 'DELETE'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to delete item with person id:', id)
+                }
+            }).catch(error => {
+                console.error('Error during fetching:', error)
+            });
+        }
+    </script>
+{% endblock %}

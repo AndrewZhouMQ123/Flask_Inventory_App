@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Edit User Profile Page{% endblock %}
+
+{% block content %}
+    {% include 'content.html' %}
+    <h1>Edit User Profile</h1>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <h3>Person Details</h3>
+    <form action="{{ url_for('people.edit') }}" method="POST">
+        <input type="text" name="name" placeholder="Name" required="required"><br>
+        <input type="number" name="age" placeholder="Age"><br>
+        <input type="text" name="job" placeholder="Job"><br>
+        <input type="submit" value="Create">
+    </form>
+
+    <script type="text/javascript">
+        function editPerson(id) {
+            fetch('{{ url_for("peoples.edit", id=id) }}' + id, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to edit item with person id:', id)
+                }
+            }).catch(error => {
+                console.error('Error during fetching:', error)
+            });
+        }
+    </script>
+{% endblock %}

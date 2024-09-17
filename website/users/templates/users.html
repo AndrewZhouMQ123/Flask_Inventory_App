@@ -4,7 +4,9 @@
 {% block content %}
     {% include 'content.html' %}
     <h1>User Session Page</h1>
-
+    <a href="{{ url_for('users.secret')}}">Secret</a>
+    <a href="{{ url_for('users.booking') }}">Booking</a>
+    <a href="{{ url_for('users.file_upload') }}">File Upload</a>
     <a href="{{ url_for('users.set_data') }}">Set Session Data</a>
     <a href="{{ url_for('users.get_data') }}">Get Session Data</a>
     <a href="{{ url_for('users.clear_session') }}">Clear Session Data</a>

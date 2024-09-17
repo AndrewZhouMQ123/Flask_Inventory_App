@@ -12,6 +12,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static', static_url_path='/')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blueprints.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     app.config['SECRET_KEY'] = secrets.token_bytes(32)
 

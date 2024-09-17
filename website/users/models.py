@@ -10,17 +10,17 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String)
-    username = db.Column(db.String, nullable=False)
+    username = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String)
     phone = db.Column(db.String, unique=True)
     email = db.Column(db.String, unique=True)
     description = db.Column(db.String)
-    people = db.relationship('people')
-    todo = db.relationship('todos')
+    # One-to-One relationship with Person
+    person = db.relationship('Person', back_populates='user', uselist=False, lazy=True)
 
 
     def __repr__(self):
         return f'<User: {self.username}, Role: {self.role}>'
     
     def get_id(self):
-        return self.uid
+        return self.id

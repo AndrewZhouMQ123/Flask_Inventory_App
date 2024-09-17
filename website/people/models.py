@@ -6,10 +6,15 @@ class Person(db.Model):
     name = db.Column(db.String, nullable=False) # POSTGRE: db.Column(String(255))
     age = db.Column(db.Integer)
     job = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # ForeignKey to User
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
+    # One-to-One relationship with User
+    user = db.relationship('User', back_populates='person', uselist=False, lazy=True)
+    # One-to-Many relationship with Todo
+    todos = db.relationship('Todo', backref='person', lazy=True)
 
     def __repr__(self):
         return f'Person with name {self.name} and age {self.age}'
     
     def get_id(self):
-        return self.pid
+        return self.id
