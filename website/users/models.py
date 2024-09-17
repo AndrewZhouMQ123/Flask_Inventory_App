@@ -2,7 +2,6 @@
 # or create db tables using sqlalchemy and flask migrate
 # running the query script on the db in terminal: sqlite3 instance/testdb.db < prova.sql
 from flask_login import UserMixin
-
 from website import db
     
 class User(db.Model, UserMixin):
@@ -17,7 +16,8 @@ class User(db.Model, UserMixin):
     description = db.Column(db.String)
     # One-to-One relationship with Person
     person = db.relationship('Person', back_populates='user', uselist=False, lazy=True)
-
+    # One-to-Many relationship with Todo
+    todos = db.relationship('Todo', backref='user', lazy=True)
 
     def __repr__(self):
         return f'<User: {self.username}, Role: {self.role}>'

@@ -10,8 +10,6 @@ class Person(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
     # One-to-One relationship with User
     user = db.relationship('User', back_populates='person', uselist=False, lazy=True)
-    # One-to-Many relationship with Todo
-    todos = db.relationship('Todo', backref='person', lazy=True)
 
     def __repr__(self):
         return f'Person with name {self.name} and age {self.age}'

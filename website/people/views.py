@@ -35,15 +35,8 @@ def edit():
         return render_template('edit.html')
     elif request.method == 'POST':
         name = request.form.get('name')
-        age = request.form.get('age')
+        age = int(request.form.get('age'))
         job = request.form.get('job')
-        
-        # Ensure age is a valid integer
-        try:
-            age = int(age)
-        except ValueError:
-            flash('Invalid age value.', 'error')
-            return redirect(url_for('people.people'))  # Redirect or handle the error as needed
         
         # Fetch the existing person record for the current user
         person = Person.query.filter_by(user_id=current_user.id).first()
@@ -62,7 +55,7 @@ def edit():
         
         return redirect(url_for('people.profile'))
 
-@people.route('/delete/<pid>', methods=['DELETE'])
+@people.route('/delete/<id>', methods=['DELETE'])
 @login_required
 def delete(id):
     Person.query.filter(Person.id == id).delete()
@@ -71,8 +64,8 @@ def delete(id):
     people = Person.query.all()
     return render_template('people.html', people=people)
 
-@people.route('/details/<pid>')
+@people.route('/details/<id>')
 @login_required
-def details(pid):
-    person = Person.query.filter(Person.pid == pid).first()
+def details(id):
+    person = Person.query.filter(Person.id == id).first()
     return render_template('details.html', person=person)

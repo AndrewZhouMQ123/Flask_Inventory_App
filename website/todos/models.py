@@ -7,7 +7,7 @@ class Todo(db.Model):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.Text)
     done = db.Column(db.Boolean, nullable=False)
-    person_id = db.Column(db.Integer, db.ForeignKey('people.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):
         return f"<TODO {self.title}, Done: {self.done}"

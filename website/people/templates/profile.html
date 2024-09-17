@@ -12,7 +12,7 @@
         <p><strong>Job:</strong> {{ current_user.person.job }}</p>
 
         <button onclick="editPerson">Edit</button>
-        <button onclick="deletePerson('{{ person.id }}')">Delete</button>
+        <button onclick="deletePerson('{{ current_user.person.id }}')">Delete</button>
     
     {% else %}
         <h3>Create User Profile</h3>
