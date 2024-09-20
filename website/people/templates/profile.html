@@ -11,8 +11,8 @@
         <p><strong>Age:</strong> {{ current_user.person.age }}</p>
         <p><strong>Job:</strong> {{ current_user.person.job }}</p>
 
-        <button onclick="editPerson">Edit</button>
-        <button onclick="deletePerson('{{ current_user.person.id }}')">Delete</button>
+        <button class="btn btn-outline-primary" onclick="editPerson">Edit</button>
+        <button class="btn btn-danger" onclick="deletePerson('{{ current_user.person.id }}')">Delete</button>
     
     {% else %}
         <h3>Create User Profile</h3>
@@ -20,13 +20,13 @@
                 <input type="text" name="name" placeholder="Name" required="required"><br>
                 <input type="number" name="age" placeholder="Age"><br>
                 <input type="text" name="job" placeholder="Job"><br>
-                <input type="submit" value="Create">
+                <button type="submit" class="btn btn-primary" value="Create User">
             </form>
     {% endif %}
 
     <script type="text/javascript">
         function editPerson() {
-            fetch('{{ url_for("peoples.edit") }}', {
+            fetch('{{ url_for("people.edit") }}', {
                 method: 'POST'
             }).then(response => {
                 if (response.ok) {
@@ -41,7 +41,7 @@
     </script>
     <script type="text/javascript">
         function deletePerson(id) {
-            fetch('{{ url_for("peoples.delete", id=id) }}' + id, {
+            fetch('{{ url_for("people.delete", id=id) }}' + id, {
                 method: 'DELETE'
             }).then(response => {
                 if (response.ok) {

@@ -32,7 +32,7 @@ def profile():
 @login_required
 def edit():
     if request.method == 'GET':
-        return render_template('edit.html')
+        return render_template('people/edit.html')
     elif request.method == 'POST':
         name = request.form.get('name')
         age = int(request.form.get('age'))

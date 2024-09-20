@@ -4,21 +4,37 @@
 {% block content %}
     {% include 'content.html' %}
     <h1>File Upload</h1>
-    <form method="POST" action="{{ url_for('users.file_upload') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('users.file_upload') }}" enctype="multipart/form-data" onsubmit="return validateFileSize(this)">
         <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/plain">
         <input type="submit" value="Upload File">
     </form>
 
     <h1>Convert to CSV</h1>
-    <form method="POST" action="{{ url_for('users.convert_csv') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('users.convert_csv') }}" enctype="multipart/form-data" onsubmit="return validateFileSize(this)">
         <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
         <input type="submit" value="Upload File">
     </form>
 
     <h1>Convert to CSV Two</h1>
-    <form method="POST" action="{{ url_for('users.convert_csv_two') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url_for('users.convert_csv_two') }}" enctype="multipart/form-data" onsubmit="return validateFileSize(this)">
         <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
         <input type="submit" value="Upload File">
     </form>
+
+    <script>
+        function validateFileSize(form) {
+            const fileInput = form.querySelector('input[type="file"]');
+            const maxFileSize = 10 * 1024 * 1024; // 10 MB
+        
+            if (fileInput.files.length > 0) {
+                const fileSize = fileInput.files[0].size;
+                if (fileSize > maxFileSize) {
+                    alert('File size exceeds the limit of 10 MB.');
+                    return false; // Prevent form submission
+                }
+            }
+            return true; // Allow form submission
+        }
+        </script>
 
 {% endblock %}

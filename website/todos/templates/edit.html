@@ -1,30 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Todos Page{% endblock %}
+{% block title %}Edit Todo{% endblock %}
 
 {% block content %}
-    {% include 'content.html' %}
-    <h1>Todos List</h1>
-
-    <ul class="list-group list-group-flush">
-        {% for todo in current_user.todos %}
-            <strong><li class="list-group-item">{{ todo.title }}</li></strong><br>
-                <li class="list-group-item">{{ todo.description}}</li><br>
-                <li class="list-group-item">{{ todo.done}}</li><br>
-                <li class="list-group-item">{{ todo.due_date}}</li><br>
-            <a href="{{ url_for('todos.edit', id=todo.id) }}">Edit</a></li>
-        {% endfor %}
-    </ul>
-    
-    <form action="{{ url_for('todos.index') }}" method="POST">
-        <h3>Create Todo</h3>
+    <h1>Todo {{ todo.id }}</h1>
+    <script src="/js/remind.js"></script>
+    <form action="{{ url_for('todos.edit, id=todo.id') }}" method="POST"></form>
+        <h3>Edit Todo</h3>
         <strong>Title: </strong><br>
-        <input type="title" name="title" placeholder="title" required="required">
+        <input type="text" name="title" value="{{ todo.title }}" placeholder="title" required="required"><br>
         <strong>Description: </strong><br>
-        <textarea name="description" class="form-control"></textarea><br>
+        <textarea name="description">{{ todo.description }}</textarea><br>
         <label for="done">Is this todo task done/completed?</label><br>
+        <input type="radio" name="done" value="yes" {% if todo.done %}checked{% endif %}> Yes
+        <input type="radio" name="done" value="no" {% if not todo.done %}checked{% endif %}> No<br>
         <input type="datetime-local" id="due_date" name="due_date" required/>
-        <button type="submit" class="btn btn-primary">Add Todo</button>
+        <button type="submit" class="btn btn-primary">Save Edit</button>
     </form>
+    <button type="button" class="btn btn-danger" onclick="{{ url_for('todos.delete', id=todo.id) }}">Delete</button>
 
     <script>
         // Get the current date and time
@@ -41,5 +33,5 @@
         dueDateInput.min = minDateTime;
         dueDateInput.max = maxDateTime;
     </script>
-    
+
 {% endblock %}

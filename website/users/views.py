@@ -22,6 +22,13 @@ def signup():
     elif request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        # Validate lengths
+        if len(username) > 30:
+            flash('Username cannot exceed 30 characters.')
+            return redirect(url_for('users.signup'))
+        if len(password) > 26:
+            flash('Password cannot exceed 26 characters.')
+            return redirect(url_for('users.signup'))
         bcrypt = current_app.extensions['BCRYPT']
         hashed_password = bcrypt.generate_password_hash(password)
 
@@ -38,6 +45,13 @@ def login():
     elif request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        # Validate lengths
+        if len(username) > 30:
+            flash('Username cannot exceed 30 characters.')
+            return redirect(url_for('users.login'))
+        if len(password) > 26:
+            flash('Password cannot exceed 26 characters.')
+            return redirect(url_for('users.login'))
 
         user = User.query.filter(User.username == username).first()
         bcrypt = current_app.extensions['BCRYPT']
@@ -77,6 +91,13 @@ def file_upload():
         return render_template('fileupload.html')
     elif request.method == 'POST':
         file = request.files['file']
+
+        # Limit file size (e.g., 10 MB)
+        max_file_size = 10 * 1024 * 1024  # 10 MB
+        if file and file.content_length > max_file_size:
+            flash('File size exceeds the limit of 10 MB.')
+            return redirect(url_for('users.file_upload'))
+        
         if file.content_type == 'text/plain':
             return file.read().decode()
         elif file.content_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" or file.content_type == "application/vnd.ms-excel":
@@ -118,7 +139,7 @@ def download(filename):
 @users.route('/set_data')
 def set_data():
     # session data is something sensitive, should not be changed by user, should not be seen by the user
-    session['name'] = 'Andrew'
+    session['name'] = 'Dodo'
     return render_template('index.html', message='Session data set.')
 
 @users.route('/get_data')
