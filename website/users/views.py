@@ -22,20 +22,28 @@ def signup():
     elif request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        if username == None or password == None:
+            flash('Empty password or username', 'error')
+            return redirect(url_for('users.signup'))
         # Validate lengths
         if len(username) > 30:
-            flash('Username cannot exceed 30 characters.')
+            flash('Username cannot exceed 30 characters.', 'error')
             return redirect(url_for('users.signup'))
         if len(password) > 26:
-            flash('Password cannot exceed 26 characters.')
+            flash('Password cannot exceed 26 characters.', 'error')
             return redirect(url_for('users.signup'))
+        
         bcrypt = current_app.extensions['BCRYPT']
         hashed_password = bcrypt.generate_password_hash(password)
 
         user = User(username=username, password=hashed_password)
+        if user is None:
+            flash('Signup failed. Invalid username or password.', 'error')
+            return redirect(url_for('users.signup'))
 
         db.session.add(user)
         db.session.commit()
+        flash('Signup Success', 'success')
         return redirect(url_for('users.login'))
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -45,23 +53,29 @@ def login():
     elif request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        if username == None or password == None:
+            flash('Empty password or username', 'error')
+            return redirect(url_for('users.login'))
         # Validate lengths
         if len(username) > 30:
-            flash('Username cannot exceed 30 characters.')
+            flash('Username cannot exceed 30 characters.', 'error')
             return redirect(url_for('users.login'))
         if len(password) > 26:
-            flash('Password cannot exceed 26 characters.')
+            flash('Password cannot exceed 26 characters.', 'error')
             return redirect(url_for('users.login'))
 
         user = User.query.filter(User.username == username).first()
         bcrypt = current_app.extensions['BCRYPT']
+        if user is None:
+            flash('Login failed. Invalid username or password.', 'error')
+            return redirect(url_for('users.login'))
         if bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            flash('Successful Login!')
+            flash('Successful Login!', 'success')
             return redirect(url_for('core.index'))
         else:
-            flash('Login failed. username or password is wrong.')
-            return redirect(url_for('login'))
+            flash('Login failed. Invalid password or username.', 'error')
+            return redirect(url_for('users.login'))
 
 @users.route('/logout')
 @login_required

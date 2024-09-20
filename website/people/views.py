@@ -13,7 +13,7 @@ def index():
         people = Person.query.all()
         return render_template('people.html', people=people)
     
-@people.route('/profile', methods=['GET'])
+@people.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     if request.method == 'GET':
@@ -32,7 +32,7 @@ def profile():
 @login_required
 def edit():
     if request.method == 'GET':
-        return render_template('people/edit.html')
+        return render_template('ppl_edit.html')
     elif request.method == 'POST':
         name = request.form.get('name')
         age = int(request.form.get('age'))

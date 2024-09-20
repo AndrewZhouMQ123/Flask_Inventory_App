@@ -21,3 +21,19 @@ class Todo(db.Model):
 
     def set_duedate(self, duedate):
         self.due_date = duedate
+
+    def set_title(self, title):
+        self.title = title
+    
+    def set_description(self, description):
+        self.description = description
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'done': self.done,
+            'due_date': self.due_date.strftime('%Y-%m-%dT%H:%M'),
+            'user_id': self.user_id,
+        }

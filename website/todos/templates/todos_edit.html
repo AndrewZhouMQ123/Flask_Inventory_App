@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Edit Todo{% endblock %}
+
+{% block content %}
+    <h1>Todo {{ todo.id }}</h1>
+    <form action="{{ url_for('todos.edit', id=todo.id) }}" method="POST">
+        <h3>Edit Todo</h3>
+        <ul class="list-group list-group-flush box">
+            <li class="list-group-item">
+                <strong>Title: </strong>
+            </li>
+            <li class="list-group-item">
+                <input type="text" name="title" value="{{ todo.title }}" placeholder="title" required="required">
+            </li>
+            <li class="list-group-item">
+                <strong>Description: </strong>
+            </li>
+            <li class="list-group-item">
+                <textarea name="description" class="form-control">{{ todo.description }}</textarea>
+            </li>
+            <li class="list-group-item text-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="done" id="done" value="yes" {% if todo.done %}checked{% endif %}>
+                    <label class="form-check-label" for="completed">
+                    Task is completed
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="done" id="not-done" value="no" {% if not todo.done %}checked{% endif %}>
+                    <label class="form-check-label" for="not-done">
+                    Task is not completed
+                    </label>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <input type="datetime-local" id="due_date" name="due_date" required/>
+            </li>
+            <li class="list-group-item">
+                <button type="submit" class="btn btn-primary">Save Edit</button>
+            </li>
+        </ul>
+    </form>
+    <a class="btn btn-danger" href="{{ url_for('todos.delete', id=todo.id) }}">Delete</a>
+
+    <script>
+        // Get the current date and time
+        const now = new Date();
+    
+        // Set the min value to the current time (formatted for datetime-local)
+        const minDateTime = now.toISOString().slice(0, 16); // 'YYYY-MM-DDTHH:MM'
+    
+        // Set the max value to 24 hours from now
+        const maxDateTime = new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, 16);
+    
+        // Set the input field's min and max attributes
+        const dueDateInput = document.getElementById('due-date');
+        dueDateInput.min = minDateTime;
+        dueDateInput.max = maxDateTime;
+    </script>
+
+{% endblock %}

@@ -3,28 +3,36 @@
 
 {% block content %}
     {% include 'content.html' %}
-    <h1>Todos List</h1>
-
-    <ul class="list-group list-group-flush">
-        {% for todo in current_user.todos %}
-            <strong><li class="list-group-item">{{ todo.title }}</li></strong><br>
-                <li class="list-group-item">{{ todo.description}}</li><br>
-                <li class="list-group-item">{{ todo.done}}</li><br>
-                <li class="list-group-item">{{ todo.due_date}}</li><br>
-            <a href="{{ url_for('todos.edit', id=todo.id) }}">Edit</a></li>
-        {% endfor %}
-    </ul>
+    <script src="/js/remind.js"></script>
+    <div class="section 1" style="background-color: #f0f8ff">
+        <h1>Todos List</h1>
+        <ul class="list-group list-group-flush">
+            {% for todo in current_user.todos %}
+                <ul class="box list-group list-group-flush" style="background-color: #E3D9B0">
+                    <strong><li class="list-group-item">{{ todo.title }}</li></strong>
+                        <li class="list-group-item">{{ todo.description}}</li>
+                        <li class="list-group-item">{{ todo.done}}</li>
+                        <li class="list-group-item">{{ todo.due_date}}</li>
+                    <li class="list-group-item">
+                        <p>Todo ID: {{ todo.id }}</p>
+                        <a href="{{ url_for('todos.edit', id=todo.id) }}" class="btn btn-outline-primary">Edit</a>
+                    </li>
+                </ul>
+            {% endfor %}
+        </ul>
+    </div>
     
-    <form action="{{ url_for('todos.index') }}" method="POST">
-        <h3>Create Todo</h3>
-        <strong>Title: </strong><br>
-        <input type="title" name="title" placeholder="title" required="required">
-        <strong>Description: </strong><br>
-        <textarea name="description" class="form-control"></textarea><br>
-        <label for="done">Is this todo task done/completed?</label><br>
-        <input type="datetime-local" id="due_date" name="due_date" required/>
-        <button type="submit" class="btn btn-primary">Add Todo</button>
-    </form>
+    <div class="section 2" style="background-color: #f5f5f5">
+        <form action="{{ url_for('todos.index') }}" method="POST">
+            <h3>Create Todo</h3>
+            <strong>Title: </strong><br>
+            <input type="title" name="title" placeholder="title" required="required">
+            <strong>Description: </strong><br>
+            <textarea name="description" class="form-control"></textarea><br>
+            <input type="datetime-local" id="due_date" name="due_date" required/>
+            <button type="submit" class="btn btn-primary">Add Todo</button>
+        </form>
+    </div>
 
     <script>
         // Get the current date and time

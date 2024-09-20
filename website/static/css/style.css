@@ -1,4 +1,41 @@
-h1, h3, strong {
+h1, h3, form {
     display: block;
     text-align: center;
+}
+
+nav {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.section {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 20px 0;
+}
+
+.box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.success {
+    color: green; /* Text color for success messages */
+}
+
+.error {
+    color: red; /* Text color for error messages */
+}
+
+.list-group-item.success {
+    background-color: #d4edda; /* Light green background */
+    border-color: #c3e6cb; /* Border color */
+}
+
+.list-group-item.error {
+    background-color: #f8d7da; /* Light red background */
+    border-color: #f5c6cb; /* Border color */
 }

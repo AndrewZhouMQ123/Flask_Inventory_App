@@ -11,7 +11,7 @@ async function checkDueDates() {
     const todos = await fetchTodos();
     const now = new Date();
     todos.forEach(todo => {
-        const dueDate = new Date(todo.due_date); // Assuming due_date is a valid date string
+        const dueDate = new Date(todo.due_date);
         if (dueDate < now) {
             alert(`Reminder: The todo "${todo.title}" is past its due date!`);
         }
