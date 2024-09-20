@@ -1,5 +1,5 @@
 .venv/
-instance/
+website/blueprints.db
 migrations/
 __pycache__/
 website/__pycache__/
