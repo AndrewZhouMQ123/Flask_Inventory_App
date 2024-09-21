@@ -40,8 +40,27 @@
             </li>
         </ul>
     </form>
-    <a class="btn btn-danger" href="{{ url_for('todos.delete', id=todo.id) }}">Delete</a>
+    <a class="btn btn-danger" onclick="deleteTodo('{{ todo.id }}')">Delete</a>
 
+    <script type="text/javascript">
+        function deleteTodo(id) {
+            fetch('{{ url_for("todos.delete", id=0) }}'.replace('0', id), {
+                method: 'DELETE'
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();  // Parse the JSON response
+                } else {
+                    throw new Error('Failed to delete item with todo id: ' + id);
+                }
+            }).then(data => {
+                if (data.success) {
+                    window.location.href = '{{ url_for("todos.index") }}';  // Redirect to todos.index
+                }
+            }).catch(error => {
+                console.error('Error during fetching:', error);
+            });
+        }
+    </script>
     <script>
         // Get the current date and time
         const now = new Date();

@@ -57,4 +57,4 @@ def edit(id):
 def delete(id):
     Todo.query.filter(Todo.id == id).delete()
     db.session.commit()
-    return render_template('todos.html')
+    return {'success': True}, 200
