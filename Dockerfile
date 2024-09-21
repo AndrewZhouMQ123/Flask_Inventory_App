@@ -8,7 +8,7 @@ WORKDIR /flask_inventory_app
 # copy <the file we want to copy> <we give a name for the copied file>
 COPY requirements.txt requirements.txt
 # tell docker to run this command to install the requirements from the copied file
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 # copy everything in the current directory, to the current directory in the server
 COPY . .
 
@@ -20,4 +20,4 @@ ENV FLASK_APP=main.py
 RUN flask db init && flask db migrate && flask db upgrade
 
 # run the following command to run the application
-CMD ["python3", "main.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "main:flask_app"]
