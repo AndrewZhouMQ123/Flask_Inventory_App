@@ -20,4 +20,4 @@ ENV FLASK_APP=main.py
 RUN flask db init && flask db migrate && flask db upgrade
 
 # run the following command to run the application
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "main:flask_app"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "main:flask_app"]
