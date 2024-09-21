@@ -14,7 +14,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blueprints.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
-    app.config['SECRET_KEY'] = secrets.token_bytes(32)
+    app.config['SECRET_KEY'] = secrets.token_hex(32)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
